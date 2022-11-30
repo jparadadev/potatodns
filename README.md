@@ -1,1 +1,1 @@
-# potatoDNS
+# PotatoDNS
