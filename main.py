@@ -36,5 +36,6 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     destiny = args.destiny
+    interface = args.interface
 
-    sniff(prn=on_dns_packet_detected)
+    sniff(prn=on_dns_packet_detected, iface=interface)
