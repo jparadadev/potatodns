@@ -31,8 +31,10 @@ def on_dns_packet_detected(pkt):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
+
     parser.add_argument('--destiny', type=str, default='127.0.0.1', help='Default destiny for DNS packets.')
     parser.add_argument('--interface', type=str, default='lo', help='Default interface.')
+
     args = parser.parse_args()
 
     destiny = args.destiny
