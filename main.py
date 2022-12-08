@@ -1,6 +1,4 @@
-from scapy.layers.dns import DNS, DNSRR
-from scapy.layers.inet import IP, UDP
-from scapy.sendrecv import sniff, send
+from scapy.all import DNS, IP, UDP, DNSRR, send, sniff
 
 
 def on_dns_packet_detected(pkt):
@@ -22,4 +20,4 @@ def on_dns_packet_detected(pkt):
 
 
 if __name__ == '__main__':
-    sniff(filter="udp and port 53", prn=on_dns_packet_detected)
+    sniff(prn=on_dns_packet_detected)
