@@ -2,7 +2,7 @@ from scapy.all import send, sniff, get_if_addr
 from scapy.layers.dns import DNS, DNSRR
 from scapy.layers.inet import IP, UDP
 
-from inputparams import extract_params
+from inputparams import extract_params, allowed_params
 
 destiny = None
 interface = None
@@ -40,8 +40,8 @@ def on_dns_packet_detected(pkt):
 if __name__ == '__main__':
     params = extract_params()
 
-    destiny = params['destiny']
-    interface = params['interface']
+    destiny = params[allowed_params.DESTINY]
+    interface = params[allowed_params.INTERFACE]
 
     current_ip = get_if_addr(interface)
 
