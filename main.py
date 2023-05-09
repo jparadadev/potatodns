@@ -1,6 +1,8 @@
-import argparse
+from scapy.all import send, sniff, get_if_addr
+from scapy.layers.dns import DNS, DNSRR
+from scapy.layers.inet import IP, UDP
 
-from scapy.all import DNS, IP, UDP, DNSRR, send, sniff, get_if_addr
+from inputparams import extract_params
 
 destiny = None
 interface = None
@@ -36,15 +38,10 @@ def on_dns_packet_detected(pkt):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
+    params = extract_params()
 
-    parser.add_argument('--destiny', type=str, default='127.0.0.1', help='Default destiny for DNS packets.')
-    parser.add_argument('--interface', type=str, default='en0', help='Default interface.')
-
-    args = parser.parse_args()
-
-    destiny = args.destiny
-    interface = args.interface
+    destiny = params['destiny']
+    interface = params['interface']
 
     current_ip = get_if_addr(interface)
 
